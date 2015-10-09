@@ -326,13 +326,13 @@ function GT() {
 			var forthIsStep = same(hide(l), hide(lr));
 
 			if (!forthIsStep) {
-				println("VerifyForth: 'forth' is not step");
+				console.log("VerifyForth: 'forth' is not step");
 			}
 
 			var lrEq = lr.EqualLiteral(r);
 
 			if (!lrEq) {
-				println("VerifyForth: 'forth(left) != right'");
+				console.log("VerifyForth: 'forth(left) != right'");
 			}
 			return forthIsStep && lrEq;
 		}

@@ -1,12 +1,6 @@
 var gt_test = (function(){
 	var gt = GT();
-	var testing = new function() {
-		this.Fatal = function(s){
-			println(s);
-			throw s;
-		}
-	};
-	
+
 	var tests = {
 		TestComposeIsNotStep: function(t) {
 			var a = gt.NewNamed("a");
@@ -215,23 +209,5 @@ var gt_test = (function(){
 		},
 	};
 	
-	return new function() {
-		this.run = function() {
-			var fail = false;
-			for (var testName in tests) {
-				var f = tests[testName];
-				try {
-					println("===RUN " + testName);
-					f(testing);
-					println("---PASS: " + testName);
-				}
-				catch(e) {
-					fail = true;
-					println("---FAIL: " + testName + " : " + e);
-				}
-			}
-			if (fail) println("FAIL");
-			else println("PASS");
-		}
-	}
+	return new Testing(tests);
 })();
