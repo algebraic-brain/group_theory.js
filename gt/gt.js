@@ -33,6 +33,7 @@ function GT() {
 				this.left = left;
 				this.right = right;
 				this.token = token;
+				this.enclosed = true;
 				this.cloneLiteral = function() {
 					return compose(left, right);
 				};
@@ -161,6 +162,7 @@ function GT() {
 				this.typ = 'Inversed';
 				this.operand = operand;
 				this.token = token;
+				this.enclosed = false;
 				this.cloneLiteral = function() {
 					return inverse(operand);
 				};
@@ -195,7 +197,7 @@ function GT() {
 					}
 					this.Html = function() {
 						var op = operand.view().Html()
-						if (operand.len() == 1) {
+						if (operand.len() == 1 || operand.enclosed) {
 							return operand.view().Html() + '<sup>-1</sup>';
 						} else {
 							return '<span>(' + operand.view().Html() + ')</span>' + '<sup>-1</sup>';
@@ -229,6 +231,7 @@ function GT() {
 				this.typ = 'Named';
 				this.name = name;
 				this.token = token;
+				this.enclosed = false;
 				this.cloneLiteral = function() {
 					return newNamed(name);
 				};
@@ -284,6 +287,7 @@ function GT() {
 			var hidden = new function () {
 				this.typ = 'Identity';
 				this.token = token;
+				this.enclosed = false;
 				this.cloneLiteral = function() {
 					return newIdentity();
 				};
