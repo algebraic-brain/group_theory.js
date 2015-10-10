@@ -117,6 +117,10 @@ function GT() {
 					this.Right = function() {
 						return h.getRight().view();
 					}
+					this.Html = function() {
+						return this.Left().Html() + '&sdot;' + this.Right().Html();
+					}
+					this.Show = function() { element(this.Html()); };
 					this.ToComposite = function() { return this; }
 					this.ToInversed = function() { panic("It's not Inversed"); }
 					this.ToNamed = function() { panic("It's not Named"); }
@@ -183,6 +187,10 @@ function GT() {
 					this.Map = function(f) {
 						return h.map(f);
 					}
+					this.Html = function() {
+						return operand.view().Html() + '<sup>-1</sup>';
+					}
+					this.Show = function() { element(this.Html()); };
 					this.ToComposite = function() { panic("It's not Composite"); }
 					this.ToInversed = function() { return this; }
 					this.ToNamed = function() { panic("It's not Named"); }
@@ -231,6 +239,11 @@ function GT() {
 					this.Map = function(f) {
 						return h.map(f);
 					}
+					this.Html = function() {
+						if (name === 'e') throw "'e' reserved for identity";
+						return '<i>'+name+'</i>';
+					}
+					this.Show = function() { element(this.Html()); };
 					this.ToComposite = function() { panic("It's not Composite"); }
 					this.ToInversed = function() { panic("It's not Inversed"); }
 					this.ToNamed = function() { return this; }
@@ -286,6 +299,10 @@ function GT() {
 					this.Unannihilate = function(el, left) {
 						return h.unannihilate(hide(el), left).view();
 					}
+					this.Html = function() {
+						return '<i>e</i>';
+					}
+					this.Show = function() { element(this.Html()); };
 					this.ToComposite = function() { panic("It's not Composite"); }
 					this.ToInversed = function() { panic("It's not Inversed"); }
 					this.ToNamed = function() { panic("It's not Named"); }
@@ -338,3 +355,5 @@ function GT() {
 		}
 	}();
 }
+
+var gt = GT();
