@@ -84,6 +84,9 @@ function GT() {
 				this.getRight = function() {
 					return right.cloneLiteral();
 				}
+				this.len = function() {
+					return left.len()+right.len()+1;
+				}
 				
 				function View(h){
 					h.visible = this;
@@ -118,7 +121,7 @@ function GT() {
 						return h.getRight().view();
 					}
 					this.Html = function() {
-						return this.Left().Html() + '&sdot;' + this.Right().Html();
+						return '<span>(' + this.Left().Html() + '&sdot;' + this.Right().Html() + ')</span>';
 					}
 					this.Show = function() { element(this.Html()); };
 					this.ToComposite = function() { return this; }
@@ -172,6 +175,9 @@ function GT() {
 					}
 					return c.view();
 				}
+				this.len = function() {
+					return operand.len()+1;
+				}
 				
 				function View(h){
 					h.visible = this;
@@ -188,7 +194,12 @@ function GT() {
 						return h.map(f);
 					}
 					this.Html = function() {
-						return operand.view().Html() + '<sup>-1</sup>';
+						var op = operand.view().Html()
+						if (operand.len() == 1) {
+							return operand.view().Html() + '<sup>-1</sup>';
+						} else {
+							return '<span>(' + operand.view().Html() + ')</span>' + '<sup>-1</sup>';
+						}
 					}
 					this.Show = function() { element(this.Html()); };
 					this.ToComposite = function() { panic("It's not Composite"); }
@@ -224,6 +235,9 @@ function GT() {
 				this.equalLiteral = function(other) {
 					return other.typ === 'Named' && name === other.name;
 				};
+				this.len = function() {
+					return 1;
+				}
 				
 				function View(h){
 					h.visible = this;
@@ -284,6 +298,9 @@ function GT() {
 						var n = compose(el, inverse(el))
 						return step(this, n);
 					}
+				}
+				this.len = function() {
+					return 1;
 				}
 				function View(h){
 					h.visible = this;
